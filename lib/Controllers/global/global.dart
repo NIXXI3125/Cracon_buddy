@@ -1,0 +1,26 @@
+import 'dart:async';
+import 'dart:ui';
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:drivers_app/models/costs.dart';
+import 'package:drivers_app/models/driver_data.dart';
+import 'package:drivers_app/models/trips_history_model.dart';
+import 'package:drivers_app/models/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+
+FirebaseAuth fAuth = FirebaseAuth.instance;
+User? currentFirebaseUser;
+DatabaseReference dbRef = FirebaseDatabase.instance.ref();
+StreamSubscription<Position>? streamSubscriptionPosition;
+StreamSubscription<Position>? streamSubscriptionDriverLivePosition;
+AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+Position? driverCurrentPosition;
+DriverData onlineDriverData = DriverData();
+CostModel Costing = CostModel();
+TripsHistoryModel activeTrip = TripsHistoryModel();
+String? driverVehicleType = "";
+bool isDriverActive = false;
+String statusText = "Offline";
+Color buttonColor = Colors.grey;
